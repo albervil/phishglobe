@@ -13,6 +13,8 @@
     "typescript": "latest",
     "@types/node": "latest",
     "express": "latest",
-    "request": "latest"
+    "request": "latest",
+    "lodash.filter": "latest",
+    "moment": "latest"
   }
 }

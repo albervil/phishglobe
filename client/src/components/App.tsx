@@ -19,18 +19,9 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     private getPhishes(): void {
-        // fetch('/api')
-        //     .then(res => res.json())
-        //     .then(phishes => this.setState({phishlist: phishes}));
-        this.setState(
-            {
-                phishlist: [
-                    { phish_id: 1, url: 'http://fakeurl.com' },
-                    { phish_id: 2, url: 'http://irobyou.com' },
-                    { phish_id: 3, url: 'http://secretscam.com' },
-                ] 
-            }
-        )
+        fetch('/api')
+            .then(res => res.json())
+            .then(phishes => this.setState({phishlist: phishes}));
     }
 
     public render() {

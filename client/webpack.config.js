@@ -6,19 +6,28 @@ module.exports = {
     },
 
     // Enable sourcemaps for debugging webpack's output
-    devtool: "source-map",
+    devtool: "eval",
 
+    entry: [
+       'index.tsx'
+    ],
+    
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions
-        extensions: [".ts", ".tsx", ".js", ".json"]
-    },
+        extensions: [".ts", ".tsx", ".js", ".json"],
 
+        // add 'src' to the modules, so that when you import files you can do so with 'src' as the relative route
+        modules: ['src', 'node_modules'],
+    },
 
     // configure the dev server to run
     devServer: {
         port: 3000,
         historyApiFallback: true,
         inline: true,
+        proxy: {
+            "/api": "http://localhost:5000"
+        }
     },
 
     module: {

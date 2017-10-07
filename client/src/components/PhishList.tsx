@@ -6,7 +6,7 @@ export interface PhishListProps {
 
 export class PhishList extends React.Component<PhishListProps, any> {
     public render() {
-        var phishes = this.props.phishlist.map(function (phish) {
+        let phishes = this.props.phishlist.map(function (phish) {
             return (
                 <table>
                     <tr>

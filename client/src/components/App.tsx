@@ -1,5 +1,6 @@
 import * as React from "react"
 import { PhishList } from "./PhishList";
+import { PhishMap } from "./PhishMap";
 
 export interface AppProps { }
 export interface AppState {
@@ -25,6 +26,15 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     public render() {
-        return <PhishList phishlist={this.state.phishlist} />
+        return (
+            <div className="app col col-md-12">
+                <div className="col col-md-9">
+                    <PhishMap phishlist={this.state.phishlist} />
+                </div>
+                <div className="col col-md-3">
+                    <PhishList phishlist={this.state.phishlist} />
+                </div>
+            </div>
+        )
     }
 }

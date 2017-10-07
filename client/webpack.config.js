@@ -14,7 +14,7 @@ module.exports = {
     
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions
-        extensions: [".ts", ".tsx", ".js", ".json"],
+        extensions: [".ts", ".tsx", ".js", ".json", ".png"],
 
         // add 'src' to the modules, so that when you import files you can do so with 'src' as the relative route
         modules: ['src', 'node_modules'],
@@ -34,6 +34,7 @@ module.exports = {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            { test: /\.(png|jpg|gif)$/, loader: "file-loader"},
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }

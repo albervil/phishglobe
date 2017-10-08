@@ -11,7 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "latest",
+    "apicache": "^1.1.0",
+    "compression": "^1.7.1",
     "express": "latest",
+    "express-timestamp": "^0.1.4",
     "lodash.filter": "latest",
     "lodash.map": "latest",
     "moment": "latest",

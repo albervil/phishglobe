@@ -10,19 +10,23 @@
   "license": "ISC",
   "dependencies": {
     "@types/google-map-react": "^0.23.0",
+    "@types/lodash.isempty": "^4.4.3",
+    "@types/lodash.map": "^4.6.12",
     "@types/react": "^16.0.9",
     "@types/react-bootstrap": "^0.31.4",
     "@types/react-dom": "^16.0.0",
     "@types/react-leaflet": "^1.1.4",
     "awesome-typescript-loader": "^3.2.3",
-    "google-map-react": "^0.24.0",
     "leaflet": "^1.2.0",
+    "lodash.isempty": "^4.4.0",
+    "lodash.map": "^4.6.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^16.0.0",
     "react-leaflet": "^1.7.0",
     "source-map-loader": "^0.2.2",
-    "typescript": "^2.5.3"
+    "typescript": "^2.5.3",
+    "webpack": "^3.6.0"
   },
   "devDependencies": {
     "file-loader": "^1.1.5"

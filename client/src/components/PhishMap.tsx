@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import { LatLng, Icon } from 'leaflet'
+import { LatLng, Icon } from 'leaflet';
+import { isEmpty, map } from "lodash";
 
 const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png';
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
@@ -24,30 +25,46 @@ export class PhishMap extends React.Component<PhishMapProps, PhishMapState> {
     constructor() {
         super();
         this.state = {
-            lat: 0,
+            lat: 30,
             lon: 0,
-            zoom: 2
+            zoom: 3
         };
     }
 
     public render() {
-        let position = new LatLng(this.state.lat, this.state.lon);
+        let center = new LatLng(this.state.lat, this.state.lon);
+        var that = this;
+        let markers = (!isEmpty(this.props.phishlist)) ? (
+            <div>
+            {
+                map(this.props.phishlist, function (phish, index) {
+                    return (
+                        <Marker position={new LatLng(phish.lat, phish.lon)}>
+                            <Popup>
+                                <span>
+                                    {phish.submission_time}<br />
+                                    <a href={phish.url}>{phish.url}</a><br />
+                                    Target: {phish.target}<br />
+                                </span>
+                            </Popup>
+                        </Marker>    
+                    );       
+                })        
+            }
+            </div>
+        ) : null;
 
         return (
             <div>
                 <Map
-                    center={position}
+                    center={center}
                     zoom={this.state.zoom}
                 >
                     <TileLayer
                         attribution={stamenTonerAttr}
                         url={stamenTonerTiles}
                     />
-                    <Marker position={position}>
-                        <Popup>
-                            <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
-                        </Popup>
-                    </Marker>
+                    {markers}
                </Map>
             </div>
         )

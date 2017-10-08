@@ -26,14 +26,19 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     public render() {
+        // return (
+        //     <div className="app col col-md-12">
+        //         <div className="col col-md-9">
+        //             <PhishMap phishlist={this.state.phishlist} />
+        //         </div>
+        //         <div className="col col-md-3">
+        //             <PhishList phishlist={this.state.phishlist} />
+        //         </div>
+        //     </div>
+        // )
         return (
-            <div className="app col col-md-12">
-                <div className="col col-md-9">
-                    <PhishMap phishlist={this.state.phishlist} />
-                </div>
-                <div className="col col-md-3">
-                    <PhishList phishlist={this.state.phishlist} />
-                </div>
+            <div className="app col col-md12">
+                <PhishMap phishlist={this.state.phishlist} />
             </div>
         )
     }

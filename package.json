@@ -10,11 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "typescript": "latest",
     "@types/node": "latest",
     "express": "latest",
-    "request": "latest",
     "lodash.filter": "latest",
-    "moment": "latest"
+    "lodash.map": "latest",
+    "moment": "latest",
+    "request": "latest",
+    "request-promise": "^4.2.2",
+    "typescript": "latest"
   }
 }

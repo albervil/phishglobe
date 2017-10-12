@@ -4,7 +4,13 @@
   "description": "Backend providing the latest phishing attacks",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "tsc & node dist",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/albervil/phishglobe.git"
   },
   "keywords": [],
   "author": "",

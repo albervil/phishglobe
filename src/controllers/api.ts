@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import { Phish } from "../models/Phish"
 import * as request from "request";
 import * as moment from "moment";
-import * as JSONStream from "jsonstream"
+import * as JSONStream from "jsonstream";
 
 export let index = (req: Request, res: Response) => {
     let results = Array<Phish>();

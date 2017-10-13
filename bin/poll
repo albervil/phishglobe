@@ -1,3 +1,26 @@
 #!/usr/bin/env node
 
-console.log('Weeee');
+var Phish_1 = require("../dist/models/Phish");
+var request = require("request");
+var moment = require("moment");
+var JSONStream = require("jsonstream");
+var fs = require("fs");
+
+let results = Array();
+
+request.get(`http://data.phishtank.com/data/online-valid.json`)
+    .pipe(JSONStream.parse('*'))
+    .on('data', function (phish) {
+        if (moment(phish.submission_time).isAfter(moment().subtract(3, 'days').utc())) {
+            Phish_1.Phish.process(phish).then(function(p){
+                results.push(p);
+            })
+        }
+    })
+    .on('end', function () {
+        fs.writeFile("resources/72hrs-online-valid.json", JSON.stringify(results), function (err) {
+            if (err) {
+                return console.log("Error writing file: " + err);
+            }
+        });
+    });

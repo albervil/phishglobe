@@ -1,14 +1,9 @@
 import * as express from "express";
 import * as apiController from "./controllers/api"
 import * as compression from "compression";
-import * as moment from "moment";
-import * as time from 'express-timestamp';
 
 const app = express();
 app.use(compression());
-app.use(time.init)
-
-let lastApiCall = null;
 
 app.get('/', (req, res) => {
     res.json({

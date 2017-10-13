@@ -25,6 +25,7 @@
     "lodash.map": "latest",
     "moment": "latest",
     "request": "latest",
+    "through2-filter": "^2.0.0",
     "typescript": "latest"
   }
 }

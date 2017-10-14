@@ -111,13 +111,17 @@ export class App extends React.Component<AppProps, AppState> {
     public render() {
         return (
             <div className="app col col-md-12">
-                <div className="map col col-md-9">
+                <div className="map col col-md-10">
+                    <h4 className="title text-center">Phishing attacks in the last 72 hours
+                        {this.state.countryFilter === '' ? '' : ' in ' + this.state.countryFilter}
+                        {this.state.targetFilter === '' ? '' : ' against ' + this.state.targetFilter}
+                    </h4>
                     <div className="header">
                         <h1 className="clock">{this.state.time}</h1>
                     </div>
                     <PhishMap phishlist={this.state.showInMap} />
                 </div>
-                <div className="list col col-md-3">
+                <div className="list col col-md-2">
                     <PhishList phishlist={this.filterPhishList()}
                         onItemHover={this.onListItemHover}
                         onItemMouseOut={this.onListItemMouseOut}

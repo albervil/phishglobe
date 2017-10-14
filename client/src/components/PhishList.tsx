@@ -29,10 +29,7 @@ export class PhishList extends React.Component<PhishListProps, any> {
 
         return (
             <div className="phishlist">
-                <table className="table table-striped table-hover">
-                    <thead>
-                        <th>Phishing Attacks</th>
-                    </thead>
+                <table className="phishtable table table-striped table-hover">
                     <tbody>
                     {
                         this.props.phishlist.map(function (phish) {

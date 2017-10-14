@@ -25,8 +25,8 @@ export class PhishMap extends React.Component<PhishMapProps, PhishMapState> {
     constructor() {
         super();
         this.state = {
-            lat: 30,
-            lon: 0,
+            lat: 20,
+            lon: 10,
             zoom: 3
         };
     }

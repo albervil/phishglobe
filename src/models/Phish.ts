@@ -12,6 +12,7 @@ export class Phish {
     private target: string;
     private lat: number;
     private lon: number;
+    private country: string;
 
     constructor(phish: Object) {
         this.phish_id = +phish['phish_id'];
@@ -32,12 +33,16 @@ export class Phish {
                     return reject(error);
                 }
 
-                let loc = JSON.parse(body)["loc"]
+                let ipinfo = JSON.parse(body)
+                let loc = ipinfo["loc"]
             
                 if (loc !== undefined) {    
                     let location = loc.split(",");
                     p.lat = +location[0];
                     p.lon = +location[1];
+                    p.country = ipinfo.country; 
+                } else {
+                    p.country = "Undefined";
                 }
 
                 resolve(p);

@@ -32,7 +32,7 @@ export class PhishList extends React.Component<PhishListProps, any> {
                                         time={phish.submission_time}
                                         url={phish.url}
                                         target={phish.target}
-                                        country='Albania'
+                                        country={phish.country}
                                     />
                                 </td></tr>
                             );

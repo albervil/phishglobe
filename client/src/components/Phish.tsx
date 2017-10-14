@@ -9,6 +9,8 @@ export interface PhishProps {
     country: string;
     onHover: Function;
     onMouseOut: Function;
+    onCountryClick: Function;
+    onTargetClick: Function;
 }
 
 export class Phish extends React.Component<PhishProps, any> {
@@ -18,6 +20,8 @@ export class Phish extends React.Component<PhishProps, any> {
         // This binding is necessary to make `this` work in the callback
         this.handleMouseOver = this.handleMouseOver.bind(this);
         this.handleMouseOut = this.handleMouseOut.bind(this);
+        this.handleCountryClick = this.handleCountryClick.bind(this);
+        this.handleTargetClick = this.handleTargetClick.bind(this);
     }
 
     public handleMouseOver(): void {
@@ -28,13 +32,29 @@ export class Phish extends React.Component<PhishProps, any> {
         this.props.onMouseOut();
     }
 
+    public handleCountryClick(): void {
+        this.props.onCountryClick(this.props.country);
+    }
+
+    public handleTargetClick(): void {
+        this.props.onTargetClick(this.props.target);
+    }
+
     public render() {
         return (
             <div className="phish" onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
-                <span className="phish_time"><strong>{moment(this.props.time).format('YYYY/MM/DD - HH:mm:ss')}</strong></span><br />
-                <span className="phish_url"><small><a href={this.props.url}>{this.props.url}</a></small></span><br />
-                <span className="target pull-left"><small><strong>{this.props.target}</strong></small></span>
-                <span className="country pull-right"><small><strong>{this.props.country}</strong></small></span>
+                <span className="phish_time">
+                    <strong>{moment(this.props.time).format('YYYY/MM/DD - HH:mm:ss')}</strong>
+                </span><br />
+                <span className="phish_url">
+                    <small><a href={this.props.url}>{this.props.url}</a></small>
+                </span><br />
+                <span className="target pull-left" onClick={this.handleTargetClick}>
+                    <small><strong><a href='#' onClick={this.handleTargetClick}>{this.props.target}</a></strong></small>
+                </span>
+                <span className="country pull-right">
+                    <small><strong><a href='#' onClick={this.handleCountryClick}>{this.props.country}</a></strong></small>
+                </span>
             </div>
         )
     }

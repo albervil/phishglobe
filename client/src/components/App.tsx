@@ -2,13 +2,16 @@ import * as React from "react";
 import { PhishList } from "./PhishList";
 import { PhishMap } from "./PhishMap";
 import * as moment from "moment";
-import { orderBy, isEmpty, find } from "lodash";
+import { orderBy, isEmpty, find, filter } from "lodash";
 
 export interface AppProps { }
 export interface AppState {
     time: string;
     phishlist: Array<any>;
+    countryFilter: string;
+    targetFilter: string;
     showInMap: Array<any>;
+    hoveredItem: boolean;
 }
 
 export class App extends React.Component<AppProps, AppState> {
@@ -17,11 +20,17 @@ export class App extends React.Component<AppProps, AppState> {
         this.state = {
             time: '',
             phishlist: [],
-            showInMap: []
+            countryFilter: '',
+            targetFilter: '',
+            showInMap: [],
+            hoveredItem: false
         };
 
         this.onListItemHover = this.onListItemHover.bind(this);
         this.onListItemMouseOut = this.onListItemMouseOut.bind(this);
+        this.onListCountryClick = this.onListCountryClick.bind(this);
+        this.onListTargetClick = this.onListTargetClick.bind(this);
+        this.filterPhishList = this.filterPhishList.bind(this);
     }
 
     public componentDidMount(): void {
@@ -34,26 +43,68 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     public onListItemHover(item_id: number): void {
-        this.setState(
-            { showInMap: [find(this.state.phishlist, { "phish_id": item_id })] }
-        )
+        this.setState({
+            showInMap: [find(this.state.phishlist, { "phish_id": item_id })],
+            hoveredItem: true
+        })
     }
 
     public onListItemMouseOut(item_id: number): void {
-        this.setState(
-            { showInMap: this.state.phishlist }
-        )
+        this.setState({
+            showInMap: this.filterPhishList(),
+            hoveredItem: false
+        })
+    }
+
+    public onListCountryClick(country: string): void {
+        this.setState({
+            countryFilter: country
+        })        
+    }
+
+    public onListTargetClick(target: string): void {
+        this.setState({
+            targetFilter: target
+        })        
+    }
+
+    public filterPhishList(): Array<Object> {
+        let filteredPhishList = this.state.phishlist;
+        let country = this.state.countryFilter;
+        let target = this.state.targetFilter;
+
+        if (this.state.countryFilter !== '') {
+            filteredPhishList = filter(filteredPhishList, { "country": this.state.countryFilter })
+        }
+        
+        if (this.state.targetFilter !== '') {
+            filteredPhishList = filter(filteredPhishList, { "target": this.state.targetFilter })
+        }
+        
+        return filteredPhishList;
     }
 
     private getPhishes(): void {
         fetch('/api')
             .then(res => res.json())
-            .then(phishes => this.setState(
-                {
-                    time: moment().format('HH:mm'),
-                    phishlist: orderBy(phishes, ['submission_time'], ['desc']),
-                    showInMap: (isEmpty(this.state.showInMap) ? phishes : this.state.showInMap)
-                })
+            .then(phishes => {
+                let filteredPhishList = phishes;
+                
+                if (this.state.countryFilter !== '') {
+                    filteredPhishList = filter(filteredPhishList, { "country": this.state.countryFilter })
+                }
+                
+                if (this.state.targetFilter !== '') {
+                    filteredPhishList = filter(filteredPhishList, { "target": this.state.targetFilter })
+                }
+
+                this.setState(
+                    {
+                        time: moment().format('HH:mm'),
+                        phishlist: orderBy(phishes, ['submission_time'], ['desc']),
+                        showInMap: this.state.hoveredItem ? this.state.showInMap : filteredPhishList
+                    })
+                }
             );
     }
 
@@ -67,9 +118,11 @@ export class App extends React.Component<AppProps, AppState> {
                     <PhishMap phishlist={this.state.showInMap} />
                 </div>
                 <div className="list col col-md-3">
-                    <PhishList phishlist={this.state.phishlist}
+                    <PhishList phishlist={this.filterPhishList()}
                         onItemHover={this.onListItemHover}
                         onItemMouseOut={this.onListItemMouseOut}
+                        onItemCountryClick={this.onListCountryClick}
+                        onItemTargetClick={this.onListTargetClick}
                     />
                 </div>
             </div>

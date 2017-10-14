@@ -5,6 +5,8 @@ export interface PhishListProps {
     phishlist: Array<any>;
     onItemHover: Function;
     onItemMouseOut: Function;
+    onItemCountryClick: Function;
+    onItemTargetClick: Function;
 }
 
 export class PhishList extends React.Component<PhishListProps, any> {
@@ -43,6 +45,8 @@ export class PhishList extends React.Component<PhishListProps, any> {
                                         country={phish.country}
                                         onHover={that.props.onItemHover}
                                         onMouseOut={that.props.onItemMouseOut}
+                                        onCountryClick={that.props.onItemCountryClick}
+                                        onTargetClick={that.props.onItemTargetClick}
                                     />
                                 </td></tr>
                             );

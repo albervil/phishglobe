@@ -1,0 +1,32 @@
+.leaflet-container {
+    height: 100%;
+    width: 100%;
+}
+.leaflet-popup-tip-container {
+    width: 100%;
+}
+.leaflet-popup-content { 
+    width: auto !important; 
+} 
+.list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 100vh;
+}
+.list table{
+    table-layout: fixed;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    position: relative;
+}
+.header {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 10;
+}
+.time {
+    position: relative; 
+    left: -50%;
+}

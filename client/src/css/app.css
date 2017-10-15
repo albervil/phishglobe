@@ -42,7 +42,7 @@ body{
     background-color:#0a141c;
 }
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: #003000;
+    background-color: #300000;
 }
 .phish {
     display: block;
@@ -60,7 +60,6 @@ body{
 .filter-link {
     padding: 2px;
     color: #0a141c !important;
-    display: block;
 }
 .filter-link:hover {
     color: #2a345c !important;
@@ -74,4 +73,8 @@ body{
     background: lightgreen;
     border-radius: 6px 6px 6px 6px;
 }
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+ }
 

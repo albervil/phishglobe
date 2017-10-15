@@ -127,29 +127,31 @@ export class App extends React.Component<AppProps, AppState> {
     public render() {
         return (
             <div className="app col col-md-12">
-                <div className="map col col-md-10">
-                    <h4 className="title text-center">Phishing attacks in the last 72 hours
-                        {this.state.countryFilter === '' ? '' : ' in ' + this.getCountryName(this.state.countryFilter)}
-                        {this.state.targetFilter === '' ? '' : ' against ' + this.state.targetFilter}
-                    </h4>
-                    <div className="list-ops">
-                        <span className="filter-button">
-                            {this.hasNoFilters() ? '' : (<button type="button" className="btn btn-primary" onClick={this.removeFilters}>Remove Filters</button>)}
-                        </span>
+                <div className="row">
+                    <div className="map col col-md-10 nopadding">
+                        <h4 className="title text-center">Phishing attacks in the last 72 hours
+                            {this.state.countryFilter === '' ? '' : ' in ' + this.getCountryName(this.state.countryFilter)}
+                            {this.state.targetFilter === '' ? '' : ' against ' + this.state.targetFilter}
+                        </h4>
+                        <div className="list-ops">
+                            <span className="filter-button">
+                                {this.hasNoFilters() ? '' : (<button type="button" className="btn btn-primary" onClick={this.removeFilters}>Remove Filters</button>)}
+                            </span>
+                        </div>
+                        <div className="header">
+                            <h1 className="clock">{this.state.time}</h1>
+                        </div>
+                        <PhishMap phishlist={this.state.showInMap} />
                     </div>
-                    <div className="header">
-                        <h1 className="clock">{this.state.time}</h1>
+                    <div className="list col col-md-2 nopadding">
+                        <PhishList phishlist={this.filterPhishList()}
+                            onItemHover={this.onListItemHover}
+                            onItemMouseOut={this.onListItemMouseOut}
+                            onItemCountryClick={this.onListCountryClick}
+                            onItemTargetClick={this.onListTargetClick}
+                        />
                     </div>
-                    <PhishMap phishlist={this.state.showInMap} />
-                </div>
-                <div className="list col col-md-2">
-                    <PhishList phishlist={this.filterPhishList()}
-                        onItemHover={this.onListItemHover}
-                        onItemMouseOut={this.onListItemMouseOut}
-                        onItemCountryClick={this.onListCountryClick}
-                        onItemTargetClick={this.onListTargetClick}
-                    />
-                </div>
+                </div>    
             </div>
         );
         // return (

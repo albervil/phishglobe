@@ -16,8 +16,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/cors": "^2.8.1",
     "@types/node": "latest",
     "compression": "^1.7.1",
+    "cors": "^2.8.4",
     "express": "latest",
     "express-timestamp": "^0.1.4",
     "jsonstream": "^1.0.3",

@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as apiController from "./controllers/api"
 import * as compression from "compression";
+import * as cors from "cors";
 
 const app = express();
 app.use(compression());
@@ -11,7 +12,7 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get("/api", apiController.index);
+app.get("/api", cors(), apiController.index);
 
 const port = process.env.PORT || 5000
 

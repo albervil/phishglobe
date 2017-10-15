@@ -3,6 +3,7 @@ import { PhishList } from "./PhishList";
 import { PhishMap } from "./PhishMap";
 import * as moment from "moment";
 import { orderBy, isEmpty, find, filter } from "lodash";
+import { countries } from "typed-countries";
 
 export interface AppProps { }
 export interface AppState {
@@ -97,6 +98,10 @@ export class App extends React.Component<AppProps, AppState> {
         return filteredPhishList;
     }
 
+    public getCountryName(countryCode: string): string {
+        return find(countries, { "iso": countryCode }).name
+    }
+
     private getPhishes(): void {
         fetch('/api')
             .then(res => res.json())
@@ -124,7 +129,7 @@ export class App extends React.Component<AppProps, AppState> {
             <div className="app col col-md-12">
                 <div className="map col col-md-10">
                     <h4 className="title text-center">Phishing attacks in the last 72 hours
-                        {this.state.countryFilter === '' ? '' : ' in ' + this.state.countryFilter}
+                        {this.state.countryFilter === '' ? '' : ' in ' + this.getCountryName(this.state.countryFilter)}
                         {this.state.targetFilter === '' ? '' : ' against ' + this.state.targetFilter}
                     </h4>
                     <div className="list-ops">

@@ -1,5 +1,7 @@
 import * as React from "react";
 import * as moment from "moment";
+import { countries } from "typed-countries";
+import { find } from "lodash";
 
 export interface PhishProps {
     id: number;
@@ -40,6 +42,10 @@ export class Phish extends React.Component<PhishProps, any> {
         this.props.onTargetClick(this.props.target);
     }
 
+    public getCountryName(countryCode: string): string {
+        return find(countries, { "iso": countryCode }).name
+    }
+
     public render() {
         return (
             <div className="phish" onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
@@ -50,10 +56,18 @@ export class Phish extends React.Component<PhishProps, any> {
                     <small><a href={this.props.url}>{this.props.url}</a></small>
                 </span><br />
                 <span className="target pull-left" onClick={this.handleTargetClick}>
-                    <small><strong><a href='#' onClick={this.handleTargetClick}>{this.props.target}</a></strong></small>
+                    <small>
+                        <strong>
+                            <a className="filter-link" href='#' onClick={this.handleTargetClick}>{this.props.target}</a>
+                        </strong>
+                    </small>
                 </span>
                 <span className="country pull-right">
-                    <small><strong><a href='#' onClick={this.handleCountryClick}>{this.props.country}</a></strong></small>
+                    <small>
+                        <strong>
+                            <a className="filter-link" href='#' onClick={this.handleCountryClick}>{this.getCountryName(this.props.country)}</a>
+                        </strong>
+                    </small>
                 </span>
             </div>
         )

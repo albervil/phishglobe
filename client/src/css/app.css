@@ -2,8 +2,11 @@ body{
     background-color: #000000 !important;
     color: #bebebe !important;
 }
+.title{
+    color: #3ba5ff !important;
+}
 .leaflet-container {
-    height: 100%;
+    height: 95%;
     width: 100%;
 }
 .leaflet-popup-tip-container {
@@ -33,10 +36,24 @@ body{
 .clock {
     position: relative; 
     left: -50%;
+    color: #3ba5ff !important;
 }
 .phishtable.table-striped>tbody>tr:nth-of-type(odd){
     background-color:#0a141c;
 }
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #003000;
+}
+.phish {
+    display: block;
+}
+.list-ops { 
+    position: absolute;
+    top: -2;
+    left: 98%;
+    z-index: 10;
+}
+.filter-button {
+    position: relative; 
+    left: -90%;
 }

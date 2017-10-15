@@ -31,6 +31,7 @@ export class App extends React.Component<AppProps, AppState> {
         this.onListCountryClick = this.onListCountryClick.bind(this);
         this.onListTargetClick = this.onListTargetClick.bind(this);
         this.filterPhishList = this.filterPhishList.bind(this);
+        this.removeFilters = this.removeFilters.bind(this);
     }
 
     public componentDidMount(): void {
@@ -39,33 +40,45 @@ export class App extends React.Component<AppProps, AppState> {
         setInterval(() => {
             console.log("Calling API");
             this.getPhishes();
-        }, 60000)
+        }, 60000);
     }
 
     public onListItemHover(item_id: number): void {
         this.setState({
             showInMap: [find(this.state.phishlist, { "phish_id": item_id })],
             hoveredItem: true
-        })
+        });
     }
 
     public onListItemMouseOut(item_id: number): void {
         this.setState({
             showInMap: this.filterPhishList(),
             hoveredItem: false
-        })
+        });
     }
 
     public onListCountryClick(country: string): void {
         this.setState({
             countryFilter: country
-        })        
+        });        
     }
 
     public onListTargetClick(target: string): void {
         this.setState({
             targetFilter: target
-        })        
+        });        
+    }
+
+    public hasNoFilters(): boolean {
+        return (this.state.countryFilter === '' && this.state.targetFilter === '');
+    }
+
+    public removeFilters(): void {
+        this.setState({
+            countryFilter: '',
+            targetFilter: '',
+            showInMap: this.state.phishlist
+        });        
     }
 
     public filterPhishList(): Array<Object> {
@@ -91,21 +104,19 @@ export class App extends React.Component<AppProps, AppState> {
                 let filteredPhishList = phishes;
                 
                 if (this.state.countryFilter !== '') {
-                    filteredPhishList = filter(filteredPhishList, { "country": this.state.countryFilter })
+                    filteredPhishList = filter(filteredPhishList, { "country": this.state.countryFilter });
                 }
                 
                 if (this.state.targetFilter !== '') {
-                    filteredPhishList = filter(filteredPhishList, { "target": this.state.targetFilter })
+                    filteredPhishList = filter(filteredPhishList, { "target": this.state.targetFilter });
                 }
 
-                this.setState(
-                    {
-                        time: moment().format('HH:mm'),
-                        phishlist: orderBy(phishes, ['submission_time'], ['desc']),
-                        showInMap: this.state.hoveredItem ? this.state.showInMap : filteredPhishList
-                    })
-                }
-            );
+                this.setState({
+                    time: moment().format('HH:mm'),
+                    phishlist: orderBy(phishes, ['submission_time'], ['desc']),
+                    showInMap: this.state.hoveredItem ? this.state.showInMap : filteredPhishList
+                });
+            });
     }
 
     public render() {
@@ -116,6 +127,11 @@ export class App extends React.Component<AppProps, AppState> {
                         {this.state.countryFilter === '' ? '' : ' in ' + this.state.countryFilter}
                         {this.state.targetFilter === '' ? '' : ' against ' + this.state.targetFilter}
                     </h4>
+                    <div className="list-ops">
+                        <span className="filter-button">
+                            {this.hasNoFilters() ? '' : (<button type="button" className="btn btn-primary" onClick={this.removeFilters}>Remove Filters</button>)}
+                        </span>
+                    </div>
                     <div className="header">
                         <h1 className="clock">{this.state.time}</h1>
                     </div>
@@ -130,7 +146,7 @@ export class App extends React.Component<AppProps, AppState> {
                     />
                 </div>
             </div>
-        )
+        );
         // return (
         //     <div className="app col col-md12">
         //         <PhishMap phishlist={this.state.phishlist} />

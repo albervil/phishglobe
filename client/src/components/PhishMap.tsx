@@ -39,7 +39,7 @@ export class PhishMap extends React.Component<PhishMapProps, PhishMapState> {
             {
                 map(this.props.phishlist, function (phish, index) {
                     return (
-                        <Marker position={new LatLng(phish.lat, phish.lon)}>
+                        <Marker key={phish.phish_id} position={new LatLng(phish.lat, phish.lon)}>
                             <Popup>
                                 <span>
                                     {phish.submission_time}<br />

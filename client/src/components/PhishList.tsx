@@ -34,7 +34,7 @@ export class PhishList extends React.Component<PhishListProps, any> {
                     {
                         this.props.phishlist.map(function (phish) {
                             return (
-                                <tr><td>
+                                <tr key={phish.phish_id}><td>
                                     <Phish id={phish.phish_id}
                                         time={phish.submission_time}
                                         url={phish.url}
